@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Container } from "@mui/material";
 import Navbar from "./components/Navbar";
 import StockTable from "./components/StockTable";
-
+import StockProvider from "./context/stock";
 const theme = createTheme({
   palette: {
     mode: "light",
@@ -15,14 +15,14 @@ const theme = createTheme({
 const App = () => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <Box>
+    <StockProvider>
       <Navbar />
       <Box component={"main"} my={4}>
         <Container>
           <StockTable />
         </Container>
       </Box>
-    </Box>
+    </StockProvider>
   </ThemeProvider>
 );
 ReactDOM.render(<App />, document.getElementById("app"));
