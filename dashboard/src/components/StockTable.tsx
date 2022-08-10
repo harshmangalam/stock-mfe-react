@@ -32,7 +32,10 @@ const rows = [
 export default function StockTable() {
   return (
     <Box>
-      <TableContainer component={Paper}>
+      <Stack direction="row" justifyContent={"flex-end"}>
+        <CreateStock />
+      </Stack>
+      <TableContainer component={Paper} sx={{ marginTop: 2 }}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -75,8 +78,6 @@ export default function StockTable() {
           </TableBody>
         </Table>
       </TableContainer>
-
-      <CreateStock />
     </Box>
   );
 }
