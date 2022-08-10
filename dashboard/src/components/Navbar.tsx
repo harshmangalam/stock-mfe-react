@@ -12,7 +12,7 @@ export default function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Dashboard
         </Typography>
-        <Button color="error" endIcon={<LogoutIcon />}>
+        <Button color="inherit" startIcon={<LogoutIcon />}>
           Logout
         </Button>
       </Toolbar>
