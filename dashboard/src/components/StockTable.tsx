@@ -6,7 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
+import { IconButton, Stack, Tooltip } from "@mui/material";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 function createData(
   name: string,
   calories: number,
@@ -34,6 +37,7 @@ export default function StockTable() {
             <TableCell align="center">Category</TableCell>
             <TableCell align="center">Items</TableCell>
             <TableCell align="center">Cost(Rupees)</TableCell>
+            <TableCell align="center">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,6 +49,25 @@ export default function StockTable() {
               <TableCell align="center">{row.calories}</TableCell>
               <TableCell align="center">{row.calories}</TableCell>
               <TableCell align="center">{row.fat}</TableCell>
+              <TableCell align="center">
+                <Stack direction={"row"} justifyContent="center">
+                  <Tooltip title="View stock details">
+                    <IconButton>
+                      <VisibilityOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Edit">
+                    <IconButton color="primary">
+                      <ModeEditOutlineOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title="Delete">
+                    <IconButton color="error">
+                      <DeleteOutlineOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
+                </Stack>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
