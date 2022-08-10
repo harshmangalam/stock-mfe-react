@@ -1,14 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import "./index.css";
 
+const theme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
 const App = () => (
-  <div className="container">
-    <div>Name: dashboard</div>
-    <div>Framework: react</div>
-    <div>Language: TypeScript</div>
-    <div>CSS: Empty CSS</div>
-  </div>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+  </ThemeProvider>
 );
 ReactDOM.render(<App />, document.getElementById("app"));
