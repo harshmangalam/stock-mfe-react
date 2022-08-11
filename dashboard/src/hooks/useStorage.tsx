@@ -6,7 +6,8 @@ export default function useStorage() {
   };
 
   const saveStock = (stock) => {
-    localStorage.setItem("stocks", JSON.stringify(stock));
+    const stocks = getStocks();
+    localStorage.setItem("stocks", JSON.stringify([...stocks, stock]));
   };
   return { getStocks, saveStock };
 }

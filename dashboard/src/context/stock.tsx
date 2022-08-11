@@ -1,5 +1,7 @@
 import * as React from "react";
 import useStorage from "../hooks/useStorage";
+import shortid from "shortid";
+
 interface IStock {
   id?: string;
   category: string;
@@ -45,14 +47,19 @@ export default function StockProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialArg);
   const { getStocks, saveStock } = useStorage();
 
+  const createStock = (stock: IStock) => {
+    const id = shortid();
+    const payload = { id, ...stock };
+    dispatch({ type: "CREATE", payload });
+    saveStock(payload);
+  };
+
   React.useEffect(() => {
     const stocks = getStocks();
+    console.log(stocks);
     dispatch({ type: "SET_STOCKS", payload: stocks });
   }, []);
-  const createStock = (stock: IStock) => {
-    dispatch({ type: "CREATE", payload: stock });
-    saveStock(stock);
-  };
+
   return (
     <StockStateContext.Provider value={state}>
       <StockDispatchContext.Provider value={{ createStock }}>
