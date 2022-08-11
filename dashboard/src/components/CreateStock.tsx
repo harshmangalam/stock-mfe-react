@@ -52,6 +52,11 @@ export default function CreateStock() {
     const filterItems = fields.items.filter((i) => i !== item);
     setFields((fields) => ({ ...fields, items: filterItems }));
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(fields)
+  };
   return (
     <>
       <Button
@@ -66,7 +71,7 @@ export default function CreateStock() {
       <Dialog maxWidth="sm" fullWidth open={open} onClose={handleCloseDialog}>
         <DialogTitle>Create stock</DialogTitle>
         <DialogContent>
-          <Stack component={"form"} my={2} spacing={3}>
+          <Stack component={"form"} onSubmit={handleSubmit} my={2} spacing={3}>
             <FormControl>
               <InputLabel htmlFor="category">Category</InputLabel>
               <OutlinedInput
@@ -114,16 +119,18 @@ export default function CreateStock() {
                 }
               />
             </FormControl>
-            <Stack direction={"row"} gap={2} flexWrap="wrap">
-              {fields.items.map((item) => (
-                <Chip
-                  key={item}
-                  label={item}
-                  onDelete={handleDeleteItem(item)}
-                />
-              ))}
-            </Stack>
-            <Button size="large" variant="contained">
+            {fields.items.length ? (
+              <Stack direction={"row"} gap={2} flexWrap="wrap">
+                {fields.items.map((item) => (
+                  <Chip
+                    key={item}
+                    label={item}
+                    onDelete={handleDeleteItem(item)}
+                  />
+                ))}
+              </Stack>
+            ) : null}
+            <Button type="submit" size="large" variant="contained">
               Create Stock
             </Button>
           </Stack>
