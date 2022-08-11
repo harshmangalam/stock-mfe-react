@@ -4,5 +4,9 @@ export default function useStorage() {
       ? JSON.parse(localStorage.getItem("stocks") as string)
       : [];
   };
-  return { getStocks };
+
+  const saveStock = (stock) => {
+    localStorage.setItem("stocks", JSON.stringify(stock));
+  };
+  return { getStocks, saveStock };
 }
