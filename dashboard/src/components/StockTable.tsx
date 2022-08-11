@@ -6,11 +6,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Box, IconButton, Stack, Tooltip } from "@mui/material";
+import { Box, Chip, IconButton, Stack, Tooltip } from "@mui/material";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import CreateStock from "./CreateStock";
+import { useStockState } from "../context/stock";
 function createData(
   name: string,
   calories: number,
@@ -30,6 +31,7 @@ const rows = [
 ];
 
 export default function StockTable() {
+  const stockState = useStockState();
   return (
     <Box>
       <Stack direction="row" justifyContent={"flex-end"}>
@@ -46,14 +48,21 @@ export default function StockTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {stockState?.stocks.map((stock) => (
               <TableRow
-                key={row.name}
+                key={stock.category}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell align="center">{row.calories}</TableCell>
-                <TableCell align="center">{row.calories}</TableCell>
-                <TableCell align="center">{row.fat}</TableCell>
+                <TableCell align="center">{stock.category}</TableCell>
+                <TableCell align="center">
+                  <Stack direction={"row"} spacing={1}>
+                    {stock.items.map((item) => (
+                      <Chip label={item} />
+                    ))}
+                  </Stack>
+                </TableCell>
+
+                <TableCell align="center">{stock.cost}</TableCell>
                 <TableCell align="center">
                   <Stack direction={"row"} justifyContent="center">
                     <Tooltip title="View stock details">
