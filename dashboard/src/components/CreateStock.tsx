@@ -18,7 +18,12 @@ import {
 } from "@mui/material";
 export default function CreateStock() {
   const [open, setOpen] = React.useState(false);
-  const [fields, setFields] = React.useState({
+  const [fields, setFields] = React.useState<{
+    category: string;
+    item: string;
+    items: string[];
+    cost: number;
+  }>({
     category: "",
     item: "",
     items: [],
@@ -30,6 +35,22 @@ export default function CreateStock() {
   };
   const handleOpenDialog = () => {
     setOpen(true);
+  };
+
+  const handleChange = (e) => {
+    setFields((fields) => ({ ...fields, [e.target.name]: e.target.value }));
+  };
+
+  const handleAddItem = () => {
+    setFields((fields) => ({
+      ...fields,
+      items: [...fields.items, fields.item],
+      item: "",
+    }));
+  };
+  const handleDeleteItem = (item) => () => {
+    const filterItems = fields.items.filter((i) => i !== item);
+    setFields((fields) => ({ ...fields, items: filterItems }));
   };
   return (
     <>
@@ -52,7 +73,7 @@ export default function CreateStock() {
                 id="category"
                 name="category"
                 value={fields.category}
-                onChange={() => {}}
+                onChange={handleChange}
                 label="Category"
                 fullWidth
               />
@@ -63,7 +84,7 @@ export default function CreateStock() {
                 id="cost"
                 name="cost"
                 value={fields.cost}
-                onChange={() => {}}
+                onChange={handleChange}
                 label="Cost"
                 fullWidth
               />
@@ -74,7 +95,7 @@ export default function CreateStock() {
                 id="item"
                 name="item"
                 value={fields.item}
-                onChange={() => {}}
+                onChange={handleChange}
                 label="Item"
                 fullWidth
                 endAdornment={
@@ -82,7 +103,7 @@ export default function CreateStock() {
                     <Tooltip title="Click to add item">
                       <IconButton
                         aria-label="Add item"
-                        onClick={() => {}}
+                        onClick={handleAddItem}
                         edge="end"
                       >
                         <AddIcon />
@@ -92,16 +113,22 @@ export default function CreateStock() {
                 }
               />
             </FormControl>
-            <Stack>
+            <Stack direction={"row"} gap={2} flexWrap="wrap">
               {fields.items.map((item) => (
-                <Chip key={item} label={item} onDelete={() => {}} />
+                <Chip
+                  key={item}
+                  label={item}
+                  onDelete={handleDeleteItem(item)}
+                />
               ))}
             </Stack>
+            <Button size="large" variant="contained">
+              Create Stock
+            </Button>
           </Stack>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
-          <Button onClick={handleCloseDialog}>Create</Button>
         </DialogActions>
       </Dialog>
     </>
