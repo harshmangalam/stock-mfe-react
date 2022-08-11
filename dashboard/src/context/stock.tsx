@@ -43,7 +43,7 @@ const reducer = (state, { type, payload }) => {
 
 export default function StockProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialArg);
-  const { getStocks } = useStorage();
+  const { getStocks, saveStock } = useStorage();
 
   React.useEffect(() => {
     const stocks = getStocks();
@@ -51,6 +51,7 @@ export default function StockProvider({ children }) {
   }, []);
   const createStock = (stock: IStock) => {
     dispatch({ type: "CREATE", payload: stock });
+    saveStock(stock);
   };
   return (
     <StockStateContext.Provider value={state}>
