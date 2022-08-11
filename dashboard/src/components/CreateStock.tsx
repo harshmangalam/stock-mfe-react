@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
 
 import {
+  Chip,
   FormControl,
   IconButton,
   InputAdornment,
@@ -17,6 +18,12 @@ import {
 } from "@mui/material";
 export default function CreateStock() {
   const [open, setOpen] = React.useState(false);
+  const [fields, setFields] = React.useState({
+    category: "",
+    item: "",
+    items: [],
+    cost: 0,
+  });
 
   const handleCloseDialog = () => {
     setOpen(false);
@@ -44,7 +51,7 @@ export default function CreateStock() {
               <OutlinedInput
                 id="category"
                 name="category"
-                value={""}
+                value={fields.category}
                 onChange={() => {}}
                 label="Category"
                 fullWidth
@@ -55,20 +62,20 @@ export default function CreateStock() {
               <OutlinedInput
                 id="cost"
                 name="cost"
-                value={""}
+                value={fields.cost}
                 onChange={() => {}}
                 label="Cost"
                 fullWidth
               />
             </FormControl>
             <FormControl>
-              <InputLabel htmlFor="items">Items</InputLabel>
+              <InputLabel htmlFor="item">Item</InputLabel>
               <OutlinedInput
-                id="items"
-                name="items"
-                value={""}
+                id="item"
+                name="item"
+                value={fields.item}
                 onChange={() => {}}
-                label="Items"
+                label="Item"
                 fullWidth
                 endAdornment={
                   <InputAdornment position="end">
@@ -85,6 +92,11 @@ export default function CreateStock() {
                 }
               />
             </FormControl>
+            <Stack>
+              {fields.items.map((item) => (
+                <Chip key={item} label={item} onDelete={() => {}} />
+              ))}
+            </Stack>
           </Stack>
         </DialogContent>
         <DialogActions>
