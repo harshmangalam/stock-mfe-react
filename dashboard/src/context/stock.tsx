@@ -1,5 +1,5 @@
 import * as React from "react";
-
+import useStorage from "../hooks/useStorage";
 interface IStock {
   id?: string;
   category: string;
@@ -32,12 +32,23 @@ const reducer = (state, { type, payload }) => {
         ...state,
         stocks: [...state.stocks, payload],
       };
+
+    case "SET_STOCKS":
+      return {
+        ...state,
+        stocks: payload,
+      };
   }
 };
 
 export default function StockProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialArg);
+  const { getStocks } = useStorage();
 
+  React.useEffect(() => {
+    const stocks = getStocks();
+    dispatch({ type: "SET_STOCKS", payload: stocks });
+  }, []);
   const createStock = (stock: IStock) => {
     dispatch({ type: "CREATE", payload: stock });
   };
