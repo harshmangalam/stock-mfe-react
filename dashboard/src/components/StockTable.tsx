@@ -55,7 +55,7 @@ export default function StockTable() {
               >
                 <TableCell align="center">{stock.category}</TableCell>
                 <TableCell align="center">
-                  <Stack direction={"row"} spacing={1}>
+                  <Stack direction={"row"} spacing={1} justifyContent="center" flexWrap={"wrap"}>
                     {stock.items.map((item) => (
                       <Chip label={item} />
                     ))}
