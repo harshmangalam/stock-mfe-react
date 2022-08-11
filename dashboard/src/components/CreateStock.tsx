@@ -86,6 +86,7 @@ export default function CreateStock() {
                 value={fields.cost}
                 onChange={handleChange}
                 label="Cost"
+                type="number"
                 fullWidth
               />
             </FormControl>
