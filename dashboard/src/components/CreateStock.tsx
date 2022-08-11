@@ -62,6 +62,7 @@ export default function CreateStock() {
       cost: fields.cost,
       items: fields.items,
     });
+    handleCloseDialog();
   };
   return (
     <>
