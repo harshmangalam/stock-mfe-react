@@ -16,8 +16,10 @@ import {
   OutlinedInput,
   Stack,
 } from "@mui/material";
+import { useStockDispatch } from "../context/stock";
 export default function CreateStock() {
   const [open, setOpen] = React.useState(false);
+  const stockDispatch = useStockDispatch();
   const [fields, setFields] = React.useState<{
     category: string;
     item: string;
@@ -55,7 +57,11 @@ export default function CreateStock() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(fields)
+    stockDispatch?.createStock({
+      category: fields.category,
+      cost: fields.cost,
+      items: fields.items,
+    });
   };
   return (
     <>

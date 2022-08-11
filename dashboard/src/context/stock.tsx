@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface IStock {
-  id: string;
+  id?: string;
   category: string;
   items: string[];
   cost: number;
