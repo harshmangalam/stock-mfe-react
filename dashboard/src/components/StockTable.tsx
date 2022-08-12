@@ -51,7 +51,7 @@ export default function StockTable() {
           <TableBody>
             {stockState?.stocks.map((stock) => (
               <TableRow
-                key={stock.category}
+                key={stock.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell align="center">{stock.category}</TableCell>
@@ -63,7 +63,7 @@ export default function StockTable() {
                     flexWrap={"wrap"}
                   >
                     {stock.items.map((item) => (
-                      <Chip label={item} />
+                      <Chip key={item} label={item} />
                     ))}
                   </Stack>
                 </TableCell>
