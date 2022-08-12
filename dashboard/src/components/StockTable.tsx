@@ -11,7 +11,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import CreateStock from "./CreateStock";
-import { useStockState } from "../context/stock";
+import { useStockDispatch, useStockState } from "../context/stock";
 function createData(
   name: string,
   calories: number,
@@ -32,6 +32,7 @@ const rows = [
 
 export default function StockTable() {
   const stockState = useStockState();
+  const stockDispatch = useStockDispatch();
   return (
     <Box>
       <Stack direction="row" justifyContent={"flex-end"}>
@@ -55,7 +56,12 @@ export default function StockTable() {
               >
                 <TableCell align="center">{stock.category}</TableCell>
                 <TableCell align="center">
-                  <Stack direction={"row"} spacing={1} justifyContent="center" flexWrap={"wrap"}>
+                  <Stack
+                    direction={"row"}
+                    spacing={1}
+                    justifyContent="center"
+                    flexWrap={"wrap"}
+                  >
                     {stock.items.map((item) => (
                       <Chip label={item} />
                     ))}
@@ -76,7 +82,12 @@ export default function StockTable() {
                       </IconButton>
                     </Tooltip>
                     <Tooltip title="Delete">
-                      <IconButton color="error">
+                      <IconButton
+                        color="error"
+                        onClick={() =>
+                          stockDispatch?.removeStock(stock.id as string)
+                        }
+                      >
                         <DeleteOutlineOutlinedIcon />
                       </IconButton>
                     </Tooltip>
