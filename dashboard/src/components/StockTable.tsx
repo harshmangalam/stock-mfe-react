@@ -12,6 +12,7 @@ import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutl
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import CreateStock from "./CreateStock";
 import { useStockDispatch, useStockState } from "../context/stock";
+import EditStock from "./EditStock";
 function createData(
   name: string,
   calories: number,
@@ -71,16 +72,12 @@ export default function StockTable() {
                 <TableCell align="center">{stock.cost}</TableCell>
                 <TableCell align="center">
                   <Stack direction={"row"} justifyContent="center">
-                    <Tooltip title="View stock details">
+                    {/* <Tooltip title="View stock details">
                       <IconButton>
                         <VisibilityOutlinedIcon />
                       </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Edit">
-                      <IconButton color="primary">
-                        <ModeEditOutlineOutlinedIcon />
-                      </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
+                    <EditStock {...stock} />
                     <Tooltip title="Delete">
                       <IconButton
                         color="error"

@@ -2,7 +2,7 @@ import * as React from "react";
 import useStorage from "../hooks/useStorage";
 import shortid from "shortid";
 
-interface IStock {
+export interface IStock {
   id?: string;
   category: string;
   items: string[];
@@ -16,6 +16,7 @@ type StockStateContextType = {
 type StockDispatchContextType = {
   createStock: (stock: IStock) => void;
   removeStock: (stockId: string) => void;
+  editStock: (stockId: string, stock: IStock) => void;
 };
 
 const initialArg = {
@@ -46,19 +47,31 @@ const reducer = (state, { type, payload }) => {
 
 export default function StockProvider({ children }) {
   const [state, dispatch] = React.useReducer(reducer, initialArg);
-  const { getStocks, saveStock, deleteStock } = useStorage();
+  const { getStocks, addStock, addStocks } = useStorage();
 
   const createStock = (stock: IStock) => {
     const id = shortid();
     const payload = { id, ...stock };
     dispatch({ type: "CREATE", payload });
-    saveStock(payload);
+    addStock(payload);
   };
 
   const removeStock = (stockId: string) => {
     const stocks = getStocks().filter((s) => s.id !== stockId);
     dispatch({ type: "SET_STOCKS", payload: stocks });
-    deleteStock(stockId);
+    addStocks(stocks);
+  };
+
+  const editStock = (id, data) => {
+    const stocks = getStocks().map((stock) => {
+      if (stock.id === id) {
+        return data;
+      }
+      return stock;
+    });
+
+    dispatch({ type: "SET_STOCKS", payload: stocks });
+    addStocks(stocks);
   };
 
   React.useEffect(() => {
@@ -69,7 +82,9 @@ export default function StockProvider({ children }) {
 
   return (
     <StockStateContext.Provider value={state}>
-      <StockDispatchContext.Provider value={{ createStock, removeStock }}>
+      <StockDispatchContext.Provider
+        value={{ createStock, removeStock, editStock }}
+      >
         {children}
       </StockDispatchContext.Provider>
     </StockStateContext.Provider>

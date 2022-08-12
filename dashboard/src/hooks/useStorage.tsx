@@ -5,7 +5,7 @@ export default function useStorage() {
       : [];
   };
 
-  const saveStock = (stock) => {
+  const addStock = (stock) => {
     const stocks = getStocks();
     localStorage.setItem("stocks", JSON.stringify([...stocks, stock]));
   };
@@ -14,5 +14,9 @@ export default function useStorage() {
     const stocks = getStocks().filter((s) => s.id !== stockId);
     localStorage.setItem("stocks", JSON.stringify(stocks));
   };
-  return { getStocks, saveStock, deleteStock };
+
+  const addStocks = (stocks) => {
+    localStorage.setItem("stocks", JSON.stringify(stocks));
+  };
+  return { getStocks, addStocks, addStock };
 }
