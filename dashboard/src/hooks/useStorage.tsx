@@ -9,5 +9,10 @@ export default function useStorage() {
     const stocks = getStocks();
     localStorage.setItem("stocks", JSON.stringify([...stocks, stock]));
   };
-  return { getStocks, saveStock };
+
+  const deleteStock = (stockId: string) => {
+    const stocks = getStocks().filter((s) => s.id !== stockId);
+    localStorage.setItem("stocks", JSON.stringify(stocks));
+  };
+  return { getStocks, saveStock, deleteStock };
 }
